@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+
+const request = require('request');
 
 function App() {
+  const [data, setData] = useState([]);
+
+  const refreshStatus = () => {
+    request('https://www.githubstatus.com/', { json: true }, (err, res, body) => {
+      const data = body.components.filter(component => component.name.indexOf('Visit') < 0);
+      console.log(data);
+      setData(data);
+    });
+  }
+
+  useEffect(() => {
+    refreshStatus();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>GitHub current status</h1>
+      <button onClick={refreshStatus}>
+        Refresh Status
+      </button>
+      <div>
+        {
+          data.map(component => (
+            <div key={component.id} className="component">
+              <p>{component.name}</p>
+              <p>{component.description}</p>
+              <p>{component.status}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
