@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import Status from './components/Status';
+
+import './App.css';
+import './assets/styles/reset.css';
 
 const request = require('request');
 
 function App() {
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const refreshStatus = () => {
-    request('https://www.githubstatus.com/', { json: true }, (err, res, body) => {
+  const refreshStatus = async () => {
+    setRefreshing(true);
+    await request('https://www.githubstatus.com/', { json: true }, (err, res, body) => {
       const data = body.components.filter(component => component.name.indexOf('Visit') < 0);
-      console.log(data);
       setData(data);
+      setRefreshing(false);
     });
   }
 
@@ -18,22 +24,26 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>GitHub current status</h1>
-      <button onClick={refreshStatus}>
-        Refresh Status
-      </button>
-      <div>
-        {
-          data.map(component => (
-            <div key={component.id} className="component">
-              <p>{component.name}</p>
-              <p>{component.description}</p>
-              <p>{component.status}</p>
-            </div>
-          ))
-        }
+    <div className='App'>
+      <h1 className='title'>GitHub current status</h1>
+
+      <div className='data-list-container'>
+        <div className='data-list'>
+          {
+            data.map(component => (
+              <div key={component.id} className='data-component'>
+                <p>{component.name}</p>
+                {/* <p>{component.description}</p> */}
+                <Status status={component.status} />
+              </div>
+            ))
+          }
+        </div>
       </div>
+
+      <button className='refresh-button' onClick={refreshStatus}>
+        {refreshing ? 'Refreshing...' : 'Refresh status'}
+      </button>
     </div>
   );
 }

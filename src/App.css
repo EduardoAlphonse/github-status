@@ -1,0 +1,59 @@
+.App {
+	background-color: #efefef;
+	min-height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.data-list-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+.data-list {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 700px;
+	min-width: 600px;
+}
+
+.data-component {
+	display: flex;
+	justify-content: space-between;
+	background-color: #fff;
+	border-radius: 3rem;
+	padding: 1rem;
+	margin: 0.5rem;
+	min-width: 40%;
+	flex: 1;
+}
+
+.title {
+	font: 400 2rem Poppins;
+	padding: 2rem 0;
+	text-align: center;
+}
+
+.refresh-button {
+	padding: 0.5rem 1rem;
+	color: #fff;
+	background-color: #099913;
+	font-weight: 600;
+	letter-spacing: 0.05rem;
+
+	border-radius: 7px;
+	border: none;
+	outline: none;
+	width: 160px;
+}
+
+.refresh-button:hover {
+	background-color: #07811b;
+}
+
+.refresh-button:active {
+	background-color: #05692c;
+}

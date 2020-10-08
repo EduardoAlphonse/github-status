@@ -1,0 +1,20 @@
+.status-icon {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.status-icon svg {
+	box-sizing: content-box;
+	border-radius: 2rem;
+	padding: 0.1rem;
+}
+
+.operational svg {
+	background-color: #099913;
+	color: #fff;
+}
+
+.warning svg {
+	color: #d4d413;
+}
