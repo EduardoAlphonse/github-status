@@ -17,11 +17,13 @@ const Warning = () => (
 
 const Status = ({ status }) => {
 	{
-		return status === 'operational'
+		status === 'operational' ? (
 			// ? <Warning />
 			// : <Operational />
-			? <Operational />
-			: <Warning />
+			<Operational />
+		) : (
+			<Warning />
+		)
 	}
 }
 
